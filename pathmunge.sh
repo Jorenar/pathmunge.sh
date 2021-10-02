@@ -31,7 +31,7 @@ pathmunge() {
         esac
     done
 
-    shift $(($OPTIND - 1))
+    shift $((OPTIND - 1))
     unset option OPTARG OPTIND
 
     if [ "$help" = "0" ]; then
