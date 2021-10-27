@@ -2,16 +2,18 @@
 # Copyright (c) Jorengarenar <dev@joren.ga>
 
 pathmunge() {
-    append=0
-    sep=":"
-    help=0
+    A=0  # append flag
+    E=0  # use `eval` flag
+    H=0  # show only help flag
+    S=":" # separator
 
-    while getopts "as:h" option; do
+    while getopts "aes:h" option; do
         case $option in
-            a) append=1      ;;
-            s) sep="$OPTARG" ;;
+            a) A=1 ;;
+            e) E=1 ;;
+            s) S="$OPTARG" ;;
             h)
-                help=1
+                H=1
                 echo
                 echo "Usage: "
                 echo " pathmunge [OPTION]... [VARIABLE] [<VALUE>]"
@@ -19,6 +21,7 @@ pathmunge() {
                 echo "Options:"
                 echo " -a  append instead of prepend"
                 echo " -s  use different separator than default ':'"
+                echo " -e  don't export (uses `eval` instead)"
                 echo " -h  display this help and exit"
                 echo
                 echo "Examples:"
@@ -34,8 +37,8 @@ pathmunge() {
     shift $((OPTIND - 1))
     unset option OPTARG OPTIND
 
-    if [ "$help" = "0" ]; then
-        unset help append sep
+    if [ "$H" = "0" ]; then
+        unset H A S
         return
     fi
 
@@ -49,15 +52,19 @@ pathmunge() {
 
     eval val="\$$var"
 
-    if ! echo "$val" | grep -Eq '(^|'"$sep)$new("'$|'"$sep)" ; then
-        if [ -z "$val" ]; then
-            export "$var"="$new"
-        elif [ "$append" = "0" ]; then
-            export "$var"="$new$sep$val"
+    case "$S$val$S" in
+        *"$S$new$S"*) ;;
+        "$S$S") updated="$new" ;;
+        *) [ "$A" = "0" ] && updated="$new$S$val" || updated="$val$S$new" ;;
+    esac
+
+    if [ -n "$updated" ]; then
+        if [ "$E" = "0" ]; then
+            export "$var"="$updated"
         else
-            export "$var"="$val$sep$new"
+            eval "$var='$updated'"
         fi
     fi
 
-    unset append sep help var new val
+    unset A S H var new val updated
 }

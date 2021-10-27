@@ -27,6 +27,7 @@ pathmunge [OPTION]... [VARIABLE] [<VALUE>]
 Options:
  -a  append instead of prepend
  -s  use different separator than default ':'
+ -e  don't export (uses `eval` instead)
  -h  display this help and exit
 ```
 
