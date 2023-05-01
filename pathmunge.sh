@@ -21,7 +21,7 @@ pathmunge() {
                 echo "Options:"
                 echo " -a  append instead of prepend"
                 echo " -s  use different separator than default ':'"
-                echo " -e  don't export (uses `eval` instead)"
+                echo " -e  don't export (uses 'eval' instead)"
                 echo " -h  display this help and exit"
                 echo
                 echo "Examples:"
@@ -31,6 +31,7 @@ pathmunge() {
                 echo "  pathmunge -s'|' FOO aa        # FOO = 'bb|cc' --> FOO = 'aa|bb|cc'"
                 echo
                 ;;
+            ?) return ;;
         esac
     done
 
