@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) Jorengarenar <dev@joren.ga>
+# Copyright (c) Jorengarenar
 
 pathmunge() {
-    A=0  # append flag
-    E=0  # use `eval` flag
-    H=0  # show only help flag
+    A=0   # append flag
+    E=0   # use `eval` flag
     S=":" # separator
 
     while getopts "aes:h" option; do
@@ -13,7 +12,6 @@ pathmunge() {
             e) E=1 ;;
             s) S="$OPTARG" ;;
             h)
-                H=1
                 echo
                 echo "Usage: "
                 echo " pathmunge [OPTION]... [VARIABLE] [<VALUE>]"
@@ -30,6 +28,8 @@ pathmunge() {
                 echo "  pathmunge CPATH ~/.local/lib  # prepends CPATH with '~/.local/lib'"
                 echo "  pathmunge -s'|' FOO aa        # FOO = 'bb|cc' --> FOO = 'aa|bb|cc'"
                 echo
+                unset A E S
+                return
                 ;;
             ?) return ;;
         esac
@@ -37,11 +37,6 @@ pathmunge() {
 
     shift $((OPTIND - 1))
     unset option OPTARG OPTIND
-
-    if [ "$H" = "0" ]; then
-        unset H A S
-        return
-    fi
 
     if [ -z "$2" ]; then
         var='PATH'
@@ -67,5 +62,5 @@ pathmunge() {
         fi
     fi
 
-    unset A S H var new val updated
+    unset A E H S new updated val var
 }
