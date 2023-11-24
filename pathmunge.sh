@@ -36,7 +36,7 @@ pathmunge() {
     done
 
     shift $((OPTIND - 1))
-    unset option OPTARG OPTIND
+    unset option OPTARG
 
     if [ -z "$2" ]; then
         var='PATH'
