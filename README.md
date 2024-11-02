@@ -1,9 +1,9 @@
 `pathmunge()`
 =============
 
-[![CodeFactor](https://www.codefactor.io/repository/github/jorengarenar/pathmunge.sh/badge)](https://www.codefactor.io/repository/github/jorengarenar/pathmunge.sh)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ec0f3530ef6b4c2f8e7d1b03faed5b0a)](https://app.codacy.com/gh/Jorengarenar/pathmunge.sh/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![GitHub License](https://img.shields.io/github/license/Jorengarenar/pathmunge.sh)](https://github.com/Jorengarenar/pathmunge.sh/blob/master/LICENSE)
+[![CodeFactor](https://www.codefactor.io/repository/github/jorenar/pathmunge.sh/badge)](https://www.codefactor.io/repository/github/jorenar/pathmunge.sh)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ec0f3530ef6b4c2f8e7d1b03faed5b0a)](https://app.codacy.com/gh/Jorenar/pathmunge.sh/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![GitHub License](https://img.shields.io/github/license/Jorenar/pathmunge.sh)](https://github.com/Jorenar/pathmunge.sh/blob/master/LICENSE)
 
 `pathmunge()` is a shell function for adding directories to `PATH`
 when the specified directory isn't already there.
@@ -13,9 +13,9 @@ but to **any variable** containing separator-divided list of strings.
 
 ## Installation
 
-Clone the repository and source the [`pathmunge.sh`](https://github.com/Jorengarenar/pathmunge.sh/blob/master/pathmunge.sh) file
+Clone the repository and source the [`pathmunge.sh`](https://github.com/Jorenar/pathmunge.sh/blob/master/pathmunge.sh) file
 ```sh
-git clone https://github.com/Jorengarenar/pathmunge.sh.git "$HOME/.local/lib/shell"
+git clone https://github.com/Jorenar/pathmunge.sh.git "$HOME/.local/lib/shell"
 echo '. "$HOME/.local/lib/shell/pathmunge.sh/pathmunge.sh"' >> .profile
 ```
 
