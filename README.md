@@ -38,7 +38,7 @@ examples:
   $ pathmunge ./.local/bin after  # appends PATH with './.local/bin'
   $ pathmunge -a foo              # appends 'foo' to PATH
   $ pathmunge CPATH ~/.local/lib  # prepends CPATH with '~/.local/lib'
-  $ pathmunge -s'|' FOO aa        # turns FOO='bb|cc' into FOO='aa|bb|cc'
+  $ pathmunge -s '|' FOO aa       # turns FOO='bb|cc' into FOO='aa|bb|cc'
   $ pathmunge -p BAR after        # prepends 'after' to BAR
 ```
 
@@ -98,7 +98,7 @@ $ echo $CPATH
 ```sh
 $ echo $FOO
 bbb|ccc|ddd
-$ pathmunge -s'|' FOO aaa
+$ pathmunge -s '|' FOO aaa
 $ echo $FOO
 aaa|bbb|ccc|ddd
 ```
@@ -106,7 +106,7 @@ aaa|bbb|ccc|ddd
 ```sh
 $ echo $FOO
 aaa|bbb|ccc
-$ pathmunge -a -s'|' FOO ddd
+$ pathmunge -a -s '|' FOO ddd
 $ echo $FOO
 aaa|bbb|ccc|ddd
 ```
