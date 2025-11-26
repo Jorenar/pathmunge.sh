@@ -2,7 +2,7 @@
 # Copyright 2023-2025 Jorenar
 # shellcheck shell=sh
 
-_pathmunge_usage () {
+_pthmun_usage () {
     cat << EOF
 usage: pathmunge [OPTION]... [--] [VARIABLE] [<VALUE>]
    or: pathmunge [<VALUE>] before
@@ -32,18 +32,18 @@ pathmunge () {
         after) set -- '-a' "$1" ;;
     esac
 
-    _pathmunge_pre=1
-    _pathmunge_sep=":"
-    trap 'unset _pathmunge_pre _pathmunge_sep' EXIT
+    _pthmun_pre=1
+    _pthmun_sep=":"
+    _pthmun_clr () { unset _pthmun_pre _pthmun_sep; unset -f _pthmun_clr; }
 
     while [ $# -gt 0 ]; do
         case "$1" in
-            -h) _pathmunge_usage; return ;;
-            -p) _pathmunge_pre=1 ;;
-            -a) _pathmunge_pre=0 ;;
-            -s) _pathmunge_sep="$2" ;;
+            -h) _pthmun_usage; _pthmun_clr; return ;;
+            -p) _pthmun_pre=1 ;;
+            -a) _pthmun_pre=0 ;;
+            -s) _pthmun_sep="$2" ;;
             --) shift; break ;;
-            -?*) >&2 echo "pathmunge: error: unknown option '$1"; return 1 ;;
+            -?*) >&2 echo "pathmunge: error: unknown option '$1"; _pthmun_clr; return 1 ;;
             *) break ;;
         esac
         shift
@@ -52,10 +52,10 @@ pathmunge () {
     if [ $# -eq 1 ]; then
         set -- 'PATH' "$1"
     elif [ -z "$1" ]; then
-        return 0
+        _pthmun_clr; return 0
     fi
 
-    eval 'set -- "$1" "$'"$1"'" "$2" "$_pathmunge_sep"'
+    eval 'set -- "$1" "$'"$1"'" "$2" "$_pthmun_sep"'
     # Result:
     #  $1 = var name
     #  $2 = var value
@@ -64,14 +64,14 @@ pathmunge () {
 
     if [ -z "$2" ]; then
         eval "$1"'="$3"'
-        return 0
+        _pthmun_clr; return 0
     fi
 
     case "$4${2}$4" in
-        *"$4${3}$4"*) return 0 ;;
+        *"$4${3}$4"*) _pthmun_clr; return 0 ;;
     esac
 
-    if [ "$_pathmunge_pre" -gt 0 ]; then
+    if [ "$_pthmun_pre" -gt 0 ]; then
         eval "$1"'="$3$4$2"'
     else
         eval "$1"'="$2$4$3"'
